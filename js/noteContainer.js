@@ -3,15 +3,24 @@ var AddNote = require('./addNote')
 var NoteList = require('./noteList')
 
 var NoteContainer = React.createClass({
-    getInitialState: function(){
-      return {
-        notes: ['note1', 'note2'],
-      }
+    getInitialState: function() {
+      return {notes: []};
     },
-    addNote: function(note){
-      this.state.notes.push(note);
-      this.setState({
-        notes: this.state.notes
+    componentDidMount: function() {
+      var endpoint = this.props.url + '/api/notes';
+      $.ajax({
+        url: endpoint,
+        type: 'get',
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          if (this.isMounted()) {
+            this.setState({notes: data});
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
       });
     },
     render: function(){
