@@ -26,7 +26,7 @@ var NoteContainer = React.createClass({
     render: function(){
       return (
         <div>
-          <AddNote addNew={this.addNote} />
+          <AddNote notes={this.state.notes} />
           <NoteList notes={this.state.notes} />
         </div>
       )

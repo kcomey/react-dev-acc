@@ -21,8 +21,6 @@ app.get('/api/notes', function(req, res) {
 
 app.post('/api/notes', function(req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-  console.log('am I getting to post call?');
-  console.log(req.body);
   db.notes.insert(req.body, function(err, docs) {
     res.json(docs);
   });
