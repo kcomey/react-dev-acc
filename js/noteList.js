@@ -2,8 +2,8 @@ var React = require('react')
 
 var NoteList = React.createClass({
   render: function(){
-    var listNotes = this.props.notes.map(function(note, index){
-      return <li key='{index}'> {note.note} ({note.author}) </li>;
+    var listNotes = this.props.notes.map(function(note){
+      return <li> {note.note} ({note.author}) </li>;
     });
     return (
         <div>
