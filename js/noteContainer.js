@@ -23,6 +23,24 @@ var NoteContainer = React.createClass({
         }.bind(this)
       });
     },
+    handleDelete: function(noteToDelete, index, e) {
+      var endpoint = 'http://localhost:3000/api/notes/' + noteToDelete._id;
+        $.ajax({
+        url: endpoint,
+        type: 'delete',
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          if (this.isMounted()) {
+            this.state.notes.splice(index, 1);
+            this.setState({notes: this.state.notes});
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
     handleNoteSubmit: function(newNote) {
       var endpoint = 'http://localhost:3000/api/notes';
       $.ajax({
@@ -49,7 +67,7 @@ var NoteContainer = React.createClass({
       return (
         <div>
           <AddNote notes={this.state.notes} addNote={this.handleNoteSubmit} />
-          <NoteList notes={this.state.notes} />
+          <NoteList notes={this.state.notes} handleDelete={this.handleDelete} />
         </div>
       )
     }

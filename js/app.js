@@ -1,7 +1,6 @@
 var React = require('react')
 var Header = require('./header')
 var NoteContainer = require('./noteContainer');
-var CommentBox = require('./commentBox');
 
 var App = React.createClass({
   render: function() {
